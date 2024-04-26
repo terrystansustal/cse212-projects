@@ -63,3 +63,19 @@ public static class Search {
         return 1 + SearchSorted2(data, target, start, middle - 1);
     }
 }
+
+// <prediction>
+// I predict that the function SearchSorted2 will perform better and faster than SearchSorted1 because SearchSorted2 is a O(log n). SearchSorted1 will take longer because it
+// needs to iterate to all the items in the list to find the item and the time complexity is O(n). On the other hand, SearchSorted2 uses the logarithmic method and 
+// it splits the data in half multiple times.
+// </prediction>
+
+// <answer to questions>
+// 1. What is the performance using big O notation for each function (based on both your predictions and the actual results)?
+// The results of the function and my prediction are the same and correct. The big O notation for the function SearchSorted1 is O(n) and it's much slower
+// compared to the function SearchSorted2, which is a O(log n).
+// 
+// 2. Which function has the better performance in the worst case?
+// The function SearchSorted2 has the better performance in the worst case because it took 0.00009 milliseconds to complete. On the other hand, SearchedSorted1 took
+// 0.03704 milliseconds to complete
+// </answer to questions>
