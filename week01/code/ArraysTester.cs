@@ -35,11 +35,20 @@ public static class ArraysTester {
     private static double[] MultiplesOf(double number, int length)
     {
         // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // The first step is to initialize the array to store the multiples (somewhat similar to the ArraySelector.cs assignment)
+        // The size of this new array will be equal to the length and the array will store the multiples of "number"
+        double[] multiples = new double[length];
 
-        return new double[0]; // replace this return statement with your own
+        // The second step is to create a for loop. This step is very crucial because we need our program to interate a number of times (length).
+        // The index of the for loop will start at 0 until it reaches the length by adding 1 (i++)
+        for (int i = 0; i < length; i++) {
+
+            // for each interation inside the for loop, the function will calculate the given "numbers" by multiplying it by (i + 1).
+            multiples[i] = number * (i + 1);
+        }
+
+        // The last step will return the results of the multiples array.
+        return multiples;
     }
     
     /// <summary>
@@ -50,12 +59,32 @@ public static class ArraysTester {
     /// <br /><br />
     /// Because a list is dynamic, this function will modify the existing <c>data</c> list rather than returning a new list.
     /// </summary>
+    /// 
+
     private static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // The first step is to normalize the rotation amount. Using the modulo(%) makes sure the rotation amount doesn't exceed the length of my list
+        // This method is a great way to handle programs where the rotation amount might be greater than the size of the list
+        amount %= data.Count;
+        if (amount == 0)
+            return;
+        
+        // The second step is to set up the index
+        // The index will calculate to determine which point in the last from the data that will move to the right
+        // This method is executed by subtracting the "amount" from the total of numbers in the list
+        int index = data.Count - amount;
 
+        // A new list called the temporaryList will store the rearranged list
+        // The two parameters from the data.GetRange indicates the starting index from where the range should begin in the list
+        // and amount should specify the number of data to include in the range starting from the index
+        List<int> temporaryList = new List<int>(data.GetRange(index, amount));
+        temporaryList.AddRange(data.GetRange(0, index));
+
+        // This for loop will update the original list with the content of the temporaryList
+        for (int i = 0; i < data.Count; i++)
+        {
+            data[i] = temporaryList[i];
+        }
     }
+
 }
