@@ -12,34 +12,28 @@ public class TakingTurnsQueue {
 
     public int Length => _people.Length;
 
-    /// <summary>
-    /// Add new people to the queue with a name and number of turns
-    /// </summary>
-    /// <param name="name">Name of the person</param>
-    /// <param name="turns">Number of turns remaining</param>
     public void AddPerson(string name, int turns) {
         var person = new Person(name, turns);
         _people.Enqueue(person);
     }
 
-    /// <summary>
-    /// Get the next person in the queue and display them.  The person should
-    /// go to the back of the queue again unless the turns variable shows that they 
-    /// have no more turns left.  Note that a turns value of 0 or less means the 
-    /// person has an infinite number of turns.  An error message is displayed 
-    /// if the queue is empty.
-    /// </summary>
     public void GetNextPerson() {
-        if (_people.IsEmpty())
+        if (_people.IsEmpty()) {
             Console.WriteLine("No one in the queue.");
-        else {
-            Person person = _people.Dequeue();
-            if (person.Turns > 1) {
-                person.Turns -= 1;
-                _people.Enqueue(person);
-            }
+            return;
+        }
+        
+        Person person = _people.Dequeue();
+        Console.WriteLine(person.Name); // Outputs the person's name for tracking purposes
 
-            Console.WriteLine(person.Name);
+        // Decrement the turn count only if they have more than 0 turns
+        if (person.Turns > 0) {
+            person.Turns -= 1;
+        }
+
+        // Re-enqueue the person only if they still have turns left
+        if (person.Turns > 0) {
+            _people.Enqueue(person);
         }
     }
 
