@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 public class Translator
 {
     public static void Run()
@@ -25,6 +27,7 @@ public class Translator
     public void AddWord(string fromWord, string toWord)
     {
         // ADD YOUR CODE HERE
+        _words[fromWord] = toWord;
     }
 
     /// <summary>
@@ -35,6 +38,12 @@ public class Translator
     public string Translate(string fromWord)
     {
         // ADD YOUR CODE HERE
-        return "";
+        string newWord = "???";
+
+        if (_words.ContainsKey(fromWord)) {
+            newWord = _words[fromWord];
+        }
+
+        return newWord;
     }
 }

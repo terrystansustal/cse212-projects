@@ -28,33 +28,53 @@ public class Maze {
     /// Check to see if you can move left.  If you can, then move.  If you
     /// can't move, then display "Can't go that way!"
     /// </summary>
+
+    // Method to move left in the maze
+
     public void MoveLeft() {
-        // FILL IN CODE
-    }
+    // Check if moving left is allowed from the current position
+    if (_mazeMap[(this._currX, this._currY)][0])
+        this._currX--;
+    else
+        Console.WriteLine("Can't go that way!");
+}
 
     /// <summary>
     /// Check to see if you can move right.  If you can, then move.  If you
     /// can't move, then display "Can't go that way!"
     /// </summary>
     public void MoveRight() {
-        // FILL IN CODE
-    }
+    // Check if moving right is allowed from the current position
+    if (_mazeMap[(this._currX, this._currY)][1])
+        this._currX++;
+    else
+        Console.WriteLine("Can't go that way!");
+}
+
 
     /// <summary>
     /// Check to see if you can move up.  If you can, then move.  If you
     /// can't move, then display "Can't go that way!"
     /// </summary>
     public void MoveUp() {
-        // FILL IN CODE
-    }
+    // Check if moving up is allowed from the current position
+    if (_mazeMap[(this._currX, this._currY)][2])
+        this._currY--;
+    else
+        Console.WriteLine("Can't go that way!");
+}
 
     /// <summary>
     /// Check to see if you can move down.  If you can, then move.  If you
     /// can't move, then display "Can't go that way!"
     /// </summary>
     public void MoveDown() {
-        // FILL IN CODE
-    }
+    // Check if moving down is allowed from the current position
+    if (_mazeMap[(this._currX, this._currY)][3])
+        this._currY++;
+    else
+        Console.WriteLine("Can't go that way!");
+}
 
     public void ShowStatus() {
         Console.WriteLine($"Current location (x={_currX}, y={_currY})");
