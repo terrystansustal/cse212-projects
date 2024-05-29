@@ -147,7 +147,10 @@ public static class RecursionTester {
     /// </summary>
     public static int SumSquaresRecursive(int n) {
         // TODO Start Problem 1
-        return 0;
+        // Check if n is less than or equal to 0, if so return 0
+        if (n <= 0) return 0;
+        // Otherwise, return the square of n plus the result of the function called with n-1
+        return n * n + SumSquaresRecursive(n - 1);
     }
 
     /// <summary>
@@ -171,6 +174,17 @@ public static class RecursionTester {
     /// </summary>
     public static void PermutationsChoose(string letters, int size, string word = "") {
         // TODO Start Problem 2
+        // Check if the current word length is equal to the desired size
+        if (word.Length == size) {
+            // If it is, print the word
+            Console.WriteLine(word);
+            return;
+        }
+        // Iterate through each letter in the given string
+        foreach (var letter in letters) {
+            // Recursively call the function with the remaining letters and the current word appended with the letter
+            PermutationsChoose(new string(letters.Where(c => c != letter).ToArray()), size, word + letter);
+        }
     }
 
     /// <summary>
@@ -220,18 +234,20 @@ public static class RecursionTester {
     /// </summary>
     public static decimal CountWaysToClimb(int s, Dictionary<int, decimal>? remember = null) {
         // Base Cases
-        if (s == 0)
-            return 0;
-        if (s == 1)
-            return 1;
-        if (s == 2)
-            return 2;
-        if (s == 3)
-            return 4;
+        // Initialize the dictionary if it is null
+        // Base cases for 1, 2, and 3 steps
+        if (remember == null) remember = new Dictionary<int, decimal>();
+        if (s <= 0) return 0;
+        if (s == 1) return 1;
+        if (s == 2) return 2;
+        if (s == 3) return 4;
+        // Check if the value for s is already calculated
+        if (remember.ContainsKey(s)) return remember[s];
 
         // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
-        return ways;
+        // Recursively calculate the number of ways to climb the steps
+        remember[s] = CountWaysToClimb(s - 1, remember) + CountWaysToClimb(s - 2, remember) + CountWaysToClimb(s - 3, remember);
+        return remember[s];
     }
 
     /// <summary>
@@ -249,6 +265,16 @@ public static class RecursionTester {
     /// </summary>
     public static void WildcardBinary(string pattern) {
         // TODO Start Problem 4
+        // Find the index of the first '*' character
+        // If no '*' is found, print the pattern
+         int index = pattern.IndexOf('*');
+        if (index == -1) {
+            Console.WriteLine(pattern);
+            return;
+        }
+        // Replace '*' with '0' and '1', and recursively call the function
+        WildcardBinary(pattern.Substring(0, index) + '0' + pattern.Substring(index + 1));
+        WildcardBinary(pattern.Substring(0, index) + '1' + pattern.Substring(index + 1));
     }
 
     /// <summary>
@@ -265,6 +291,28 @@ public static class RecursionTester {
 
         // TODO Start Problem 5
         // ADD CODE HERE
+         if (currPath == null) currPath = new List<(int, int)>();
+         // Add the current position to the path
+         // Check if the current position is the end of the maze
+         // Print the current path if the end is reached
+        currPath.Add((x, y));
+        if (maze.IsEnd(x, y)) {
+            Console.WriteLine(currPath.AsString());
+            currPath.RemoveAt(currPath.Count - 1);
+            return;
+        }
+        // List of possible moves (right, down, left, up)
+        var moves = new List<(int, int)> { (x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1) };
+
+        // Iterate through each possible move
+        foreach (var move in moves) {
+            // Check if the move is vali
+            if (maze.IsValidMove(currPath, move.Item1, move.Item2)) {
+                // Recursively call the function with the new position
+                SolveMaze(maze, move.Item1, move.Item2, currPath);
+            }
+        }
+        currPath.RemoveAt(currPath.Count - 1);
 
         // Console.WriteLine(currPath.AsString()); // Use this to print out your path when you find the solution
     }
