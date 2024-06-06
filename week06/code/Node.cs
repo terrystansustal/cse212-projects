@@ -8,15 +8,14 @@ public class Node {
     }
 
     public void Insert(int value) {
+        if (value == Data) return; // Problem 1: Ignore duplicates
         if (value < Data) {
-            // Insert to the left
             if (Left is null)
                 Left = new Node(value);
             else
                 Left.Insert(value);
         }
         else {
-            // Insert to the right
             if (Right is null)
                 Right = new Node(value);
             else
@@ -26,11 +25,19 @@ public class Node {
 
     public bool Contains(int value) {
         // TODO Start Problem 2
-        return false;
+        if (value == Data) return true; // Base case
+        if (value < Data) {
+            return Left != null && Left.Contains(value); // Recursive call on left subtree
+        }
+        else {
+            return Right != null && Right.Contains(value); // Recursive call on right subtree
+        }
     }
 
     public int GetHeight() {
         // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+        int leftHeight = Left?.GetHeight() ?? 0; // Height of left subtree
+        int rightHeight = Right?.GetHeight() ?? 0; // Height of right subtree
+        return 1 + Math.Max(leftHeight, rightHeight); // Height of the current node
     }
 }
